@@ -17,7 +17,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 @Slf4j
 @SpringBootApplication
-public class MultipleDbApplication implements CommandLineRunner {
+public class MultipleDbApplication {
 
     @Autowired
     private PrimaryItemRepository primaryItemRepository;
@@ -37,8 +37,8 @@ public class MultipleDbApplication implements CommandLineRunner {
         SpringApplication.run(MultipleDbApplication.class, args);
     }
 
-    @Override
-    public void run(String... args) throws Exception { }
+//    @Override
+//    public void run(String... args) throws Exception { }
 
 //    @Override
 //    @PrimaryTransactional

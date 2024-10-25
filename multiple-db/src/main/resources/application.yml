@@ -3,17 +3,17 @@ spring:
     primary:
       driver-class-name: oracle.jdbc.OracleDriver
       url: jdbc:oracle:thin:@//localhost:1521/freepdb1
-      username: PRIMARY
-      password: PRIMARY
+      username: test
+      password: test
       liquibase:
-        change-log: classpath:db/changelog/primary/db.changelog-master.yml
+        change-log: classpath:/db/changelog/primary/db.changelog-master.yml
     secondary:
       driver-class-name: oracle.jdbc.OracleDriver
       url: jdbc:oracle:thin:@//localhost:1521/freepdb1
-      username: SECONDARY
-      password: SECONDARY
+      username: test
+      password: test
       liquibase:
-        change-log: classpath:db/changelog/secondary/db.changelog-master.yml
+        change-log: classpath:/db/changelog/secondary/db.changelog-master.yml
   jpa:
     open-in-view: false
     hibernate:

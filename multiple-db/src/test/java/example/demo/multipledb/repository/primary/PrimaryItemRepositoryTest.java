@@ -1,22 +1,23 @@
 package example.demo.multipledb.repository.primary;
 
-import example.demo.multipledb.IntegrationTest;
+import example.demo.multipledb.config.TestcontainersConfiguration;
 import example.demo.multipledb.domain.primary.PrimaryItem;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@IntegrationTest
-class PrimaryItemRepositoryTest {
+@Testcontainers
+@SpringBootTest
+class PrimaryItemRepositoryTest extends TestcontainersConfiguration {
 
     @Autowired
     private PrimaryItemRepository primaryItemRepository;
 
     @Test
-    @Disabled
     @DisplayName("Сохранение элемента (надо настроить контейнер)")
     void shouldSaveItem() {
         // Arrange
@@ -31,7 +32,6 @@ class PrimaryItemRepositoryTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Получение элемента по идентификатору (надо настроить контейнер)")
     void shouldFindItemById() {
         // Arrange
@@ -47,7 +47,6 @@ class PrimaryItemRepositoryTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Получение всех элементов (надо настроить контейнер)")
     void shouldFindAllItems() {
         // Arrange
@@ -65,7 +64,6 @@ class PrimaryItemRepositoryTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Удаление элемента по идентификатору (надо настроить контейнер)")
     void shouldDeleteItemById() {
         // Arrange

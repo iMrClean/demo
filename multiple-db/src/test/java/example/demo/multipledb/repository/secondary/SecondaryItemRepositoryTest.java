@@ -1,23 +1,26 @@
 package example.demo.multipledb.repository.secondary;
 
 import example.demo.multipledb.IntegrationTest;
+import example.demo.multipledb.config.TestcontainersConfiguration;
 import example.demo.multipledb.domain.primary.PrimaryItem;
 import example.demo.multipledb.repository.primary.PrimaryItemRepository;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@IntegrationTest
-class SecondaryItemRepositoryTest {
+@Testcontainers
+@SpringBootTest
+class SecondaryItemRepositoryTest extends TestcontainersConfiguration {
 
     @Autowired
     private PrimaryItemRepository primaryItemRepository;
 
     @Test
-    @Disabled
     @DisplayName("Сохранение элемента (надо настроить контейнер)")
     void shouldSaveItem() {
         // Arrange
@@ -32,7 +35,6 @@ class SecondaryItemRepositoryTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Получение элемента по идентификатору (надо настроить контейнер)")
     void shouldFindItemById() {
         // Arrange
@@ -48,7 +50,6 @@ class SecondaryItemRepositoryTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Получение всех элементов (надо настроить контейнер)")
     void shouldFindAllItems() {
         // Arrange
@@ -66,7 +67,6 @@ class SecondaryItemRepositoryTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Удаление элемента по идентификатору (надо настроить контейнер)")
     void shouldDeleteItemById() {
         // Arrange
