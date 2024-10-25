@@ -2,13 +2,8 @@ package example.demo.multipledb.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManagerFactory;
-import liquibase.UpdateSummaryEnum;
-import liquibase.UpdateSummaryOutputEnum;
-import liquibase.integration.spring.SpringLiquibase;
-import liquibase.ui.UIServiceEnum;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
@@ -21,8 +16,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.sql.DataSource;
-import java.util.Objects;
-import java.util.Optional;
 
 @Configuration
 @EnableTransactionManagement
@@ -68,40 +61,6 @@ public class SecondaryDataSourceConfiguration {
     @Bean
     public TransactionTemplate secondaryTransactionTemplate(@Qualifier("secondaryTransactionManager") PlatformTransactionManager secondaryTransactionManager) {
         return new TransactionTemplate(secondaryTransactionManager);
-    }
-
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.secondary.liquibase")
-    public LiquibaseProperties secondaryLiquibaseProperties() {
-        return new LiquibaseProperties();
-    }
-
-    @Bean
-    public SpringLiquibase secondaryLiquibase(@Qualifier("secondaryDataSource") DataSource secondaryDataSource, @Qualifier("secondaryLiquibaseProperties") LiquibaseProperties secondaryLiquibaseProperties) {
-        var liquibase = new SpringLiquibase();
-
-        liquibase.setDataSource(secondaryDataSource);
-
-        liquibase.setChangeLog(secondaryLiquibaseProperties.getChangeLog());
-        liquibase.setClearCheckSums(secondaryLiquibaseProperties.isClearChecksums());
-        liquibase.setContexts(secondaryLiquibaseProperties.getContexts());
-        liquibase.setDefaultSchema(secondaryLiquibaseProperties.getDefaultSchema());
-        liquibase.setLiquibaseSchema(secondaryLiquibaseProperties.getLiquibaseSchema());
-        liquibase.setLiquibaseTablespace(secondaryLiquibaseProperties.getLiquibaseTablespace());
-        liquibase.setDatabaseChangeLogTable(secondaryLiquibaseProperties.getDatabaseChangeLogTable());
-        liquibase.setDatabaseChangeLogLockTable(secondaryLiquibaseProperties.getDatabaseChangeLogLockTable());
-        liquibase.setDropFirst(secondaryLiquibaseProperties.isDropFirst());
-        liquibase.setShouldRun(secondaryLiquibaseProperties.isEnabled());
-        liquibase.setLabelFilter(secondaryLiquibaseProperties.getLabelFilter());
-        liquibase.setChangeLogParameters(secondaryLiquibaseProperties.getParameters());
-        liquibase.setRollbackFile(secondaryLiquibaseProperties.getRollbackFile());
-        liquibase.setTestRollbackOnUpdate(secondaryLiquibaseProperties.isTestRollbackOnUpdate());
-        liquibase.setTag(secondaryLiquibaseProperties.getTag());
-        Optional.ofNullable(secondaryLiquibaseProperties.getShowSummary()).map(Enum::name).map(UpdateSummaryEnum::valueOf).ifPresent(liquibase::setShowSummary);
-        Optional.ofNullable(secondaryLiquibaseProperties.getShowSummaryOutput()).map(Enum::name).map(UpdateSummaryOutputEnum::valueOf).ifPresent(liquibase::setShowSummaryOutput);
-        Optional.ofNullable(secondaryLiquibaseProperties.getUiService()).map(Enum::name).map(UIServiceEnum::valueOf).ifPresent(liquibase::setUiService);
-
-        return liquibase;
     }
 
 }

@@ -16,9 +16,6 @@ import java.lang.annotation.Target;
 public @interface SecondaryTransactional {
 
     @AliasFor(annotation = Transactional.class)
-    String value() default "";
-
-    @AliasFor(annotation = Transactional.class)
     String[] label() default {};
 
     @AliasFor(annotation = Transactional.class)

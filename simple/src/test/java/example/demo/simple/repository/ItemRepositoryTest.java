@@ -29,7 +29,7 @@ class ItemRepositoryTest {
     }
 
     @Test
-    @DisplayName("Получение всех элементов")
+    @DisplayName("Получение элемента по идентификатору")
     void shouldFindItemById() {
         // Arrange
         var item = new Item(1L, "Test Item");
