@@ -18,6 +18,7 @@
 
     <modules>
         <module>simple</module>
+        <module>multiple-db</module>
     </modules>
 
     <properties>

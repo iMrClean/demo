@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    primary:
+      driver-class-name: oracle.jdbc.OracleDriver
+      url: jdbc:oracle:thin:@//localhost:1521/freepdb1
+      username: PRIMARY
+      password: PRIMARY
+      liquibase:
+        change-log: classpath:db/changelog/primary/db.changelog-master.yml
+    secondary:
+      driver-class-name: oracle.jdbc.OracleDriver
+      url: jdbc:oracle:thin:@//localhost:1521/freepdb1
+      username: SECONDARY
+      password: SECONDARY
+      liquibase:
+        change-log: classpath:db/changelog/secondary/db.changelog-master.yml
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
