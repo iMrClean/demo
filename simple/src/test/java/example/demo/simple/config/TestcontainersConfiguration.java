@@ -15,9 +15,9 @@ import org.testcontainers.utility.DockerImageName;
 @TestConfiguration(proxyBeanMethods = false)
 public class TestcontainersConfiguration {
 
-    public static final String USERNAME = "PRIMARY";
-    public static final String PASSWORD = "PRIMARY";
-    public static final int PORT = 1521;
+    private static final String USERNAME = "PRIMARY";
+    private static final String PASSWORD = "PRIMARY";
+    private static final int PORT = 1521;
 
     @Bean
     @ServiceConnection
