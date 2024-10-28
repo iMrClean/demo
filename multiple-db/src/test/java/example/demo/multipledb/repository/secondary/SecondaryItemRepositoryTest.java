@@ -1,8 +1,7 @@
 package example.demo.multipledb.repository.secondary;
 
 import example.demo.multipledb.IntegrationTest;
-import example.demo.multipledb.domain.primary.PrimaryItem;
-import example.demo.multipledb.repository.primary.PrimaryItemRepository;
+import example.demo.multipledb.domain.secondary.SecondaryItem;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +12,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SecondaryItemRepositoryTest {
 
     @Autowired
-    private PrimaryItemRepository primaryItemRepository;
+    private SecondaryItemRepository secondaryItemRepository;
 
     @Test
     @DisplayName("Сохранение элемента (надо настроить контейнер)")
     void shouldSaveItem() {
         // Arrange
-        var item = new PrimaryItem(1L, "Test Item");
+        var item = new SecondaryItem(1L, "Test Item");
 
         // Act
-        var savedItem = primaryItemRepository.save(item);
+        var savedItem = secondaryItemRepository.save(item);
 
         // Assert
         assertThat(savedItem.getId()).isNotNull();
@@ -33,11 +32,11 @@ class SecondaryItemRepositoryTest {
     @DisplayName("Получение элемента по идентификатору (надо настроить контейнер)")
     void shouldFindItemById() {
         // Arrange
-        var item = new PrimaryItem(1L, "Test Item");
-        primaryItemRepository.save(item);
+        var item = new SecondaryItem(1L, "Test Item");
+        secondaryItemRepository.save(item);
 
         // Act
-        var foundItem = primaryItemRepository.findById(item.getId());
+        var foundItem = secondaryItemRepository.findById(item.getId());
 
         // Assert
         assertThat(foundItem).isPresent();
@@ -48,13 +47,13 @@ class SecondaryItemRepositoryTest {
     @DisplayName("Получение всех элементов (надо настроить контейнер)")
     void shouldFindAllItems() {
         // Arrange
-        var item1 = new PrimaryItem(1L, "Test Item 1");
-        var item2 = new PrimaryItem(2L, "Test Item 1");
-        primaryItemRepository.save(item1);
-        primaryItemRepository.save(item2);
+        var item1 = new SecondaryItem(1L, "Test Item 1");
+        var item2 = new SecondaryItem(2L, "Test Item 1");
+        secondaryItemRepository.save(item1);
+        secondaryItemRepository.save(item2);
 
         // Act
-        var allItems = primaryItemRepository.findAll();
+        var allItems = secondaryItemRepository.findAll();
 
         // Assert
         assertThat(allItems).hasSize(2);
@@ -65,14 +64,14 @@ class SecondaryItemRepositoryTest {
     @DisplayName("Удаление элемента по идентификатору (надо настроить контейнер)")
     void shouldDeleteItemById() {
         // Arrange
-        var item = new PrimaryItem(1L, "Test Item");
-        primaryItemRepository.save(item);
+        var item = new SecondaryItem(1L, "Test Item");
+        secondaryItemRepository.save(item);
 
         // Act
-        primaryItemRepository.deleteById(item.getId());
+        secondaryItemRepository.deleteById(item.getId());
 
         // Assert
-        var deletedItem = primaryItemRepository.findById(item.getId());
+        var deletedItem = secondaryItemRepository.findById(item.getId());
         assertThat(deletedItem).isEmpty();
     }
 
