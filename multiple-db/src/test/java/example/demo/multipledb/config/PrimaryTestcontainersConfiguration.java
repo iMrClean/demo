@@ -15,20 +15,18 @@ import org.testcontainers.utility.DockerImageName;
 @TestConfiguration(proxyBeanMethods = false)
 public class PrimaryTestcontainersConfiguration {
 
+    private static final String USERNAME = "PRIMARY";
+    private static final String PASSWORD = "PRIMARY";
+    private static final int PORT = 1521;
+
     @Bean
     @ServiceConnection
-    public OracleContainer oracleFreeContainerSecondary() {
-        OracleContainer oracle = new OracleContainer(DockerImageName.parse("gvenzl/oracle-free:latest"))
-                .withUsername("PRIMARY")
-                .withPassword("PRIMARY")
-                .withExposedPorts(1521) // Указываем порт контейнера
-                .withCreateContainerCmdModifier(cmd -> cmd.withHostConfig(new HostConfig().withPortBindings(
-                        new PortBinding(Ports.Binding.bindPort(1521), new ExposedPort(1521))
-                )));
-
-        oracle.start();
-        log.info(oracle.getLogs());
-
-        return oracle;
+    public OracleContainer oracleFreeContainerPrimary() {
+        return new OracleContainer(DockerImageName.parse("gvenzl/oracle-free:latest"))
+                .withUsername(USERNAME)
+                .withPassword(PASSWORD)
+                .withExposedPorts(PORT)
+                .withCreateContainerCmdModifier(cmd -> cmd.withHostConfig(new HostConfig().withPortBindings(new PortBinding(Ports.Binding.bindPort(PORT), new ExposedPort(PORT)))));
     }
+
 }

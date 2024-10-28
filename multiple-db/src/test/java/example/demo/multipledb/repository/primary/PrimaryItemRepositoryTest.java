@@ -3,11 +3,17 @@ package example.demo.multipledb.repository.primary;
 import example.demo.multipledb.IntegrationTest;
 import example.demo.multipledb.config.PrimaryTestcontainersConfiguration;
 import example.demo.multipledb.domain.primary.PrimaryItem;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.jdbc.Sql;
+
+import javax.sql.DataSource;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,6 +23,14 @@ class PrimaryItemRepositoryTest {
 
     @Autowired
     private PrimaryItemRepository primaryItemRepository;
+
+    @BeforeAll
+    public static void setup(@Autowired @Qualifier("primaryDataSource") DataSource dataSource) throws Exception {
+        var sql = Files.readString(Paths.get("src/test/resources/primary-create.sql"), StandardCharsets.UTF_8);
+        try (var conn = dataSource.getConnection(); var stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        }
+    }
 
     @Test
     @DisplayName("Сохранение элемента (надо настроить контейнер)")
@@ -65,7 +79,6 @@ class PrimaryItemRepositoryTest {
     }
 
     @Test
-    @Sql("/primary-create.sql")
     @DisplayName("Удаление элемента по идентификатору (надо настроить контейнер)")
     void shouldDeleteItemById() {
         // Arrange
