@@ -1,14 +1,18 @@
 package example.demo.multipledb.repository.primary;
 
 import example.demo.multipledb.IntegrationTest;
+import example.demo.multipledb.config.PrimaryTestcontainersConfiguration;
 import example.demo.multipledb.domain.primary.PrimaryItem;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.jdbc.Sql;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @IntegrationTest
+@Import(PrimaryTestcontainersConfiguration.class)
 class PrimaryItemRepositoryTest {
 
     @Autowired
@@ -61,6 +65,7 @@ class PrimaryItemRepositoryTest {
     }
 
     @Test
+    @Sql("/primary-create.sql")
     @DisplayName("Удаление элемента по идентификатору (надо настроить контейнер)")
     void shouldDeleteItemById() {
         // Arrange

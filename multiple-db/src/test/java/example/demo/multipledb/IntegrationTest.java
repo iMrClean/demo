@@ -1,6 +1,6 @@
 package example.demo.multipledb;
 
-import example.demo.multipledb.config.TestcontainersConfiguration;
+import example.demo.multipledb.config.SecondaryTestcontainersConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
@@ -11,6 +11,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import(TestcontainersConfiguration.class)
+//@Import(SecondaryTestcontainersConfiguration.class)
 @SpringBootTest
 public @interface IntegrationTest { }
