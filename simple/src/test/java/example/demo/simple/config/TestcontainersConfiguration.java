@@ -22,15 +22,11 @@ public class TestcontainersConfiguration {
     @Bean
     @ServiceConnection
     public OracleContainer oracleFreeContainer() {
-        var oracle = new OracleContainer(DockerImageName.parse("gvenzl/oracle-free:latest"))
+        return new OracleContainer(DockerImageName.parse("gvenzl/oracle-free:latest"))
                 .withUsername(USERNAME)
                 .withPassword(PASSWORD)
                 .withExposedPorts(PORT)
                 .withCreateContainerCmdModifier(cmd -> cmd.withHostConfig(new HostConfig().withPortBindings(new PortBinding(Ports.Binding.bindPort(PORT), new ExposedPort(PORT)))));
-
-        oracle.start();
-        log.info(oracle.getLogs());
-        return oracle;
     }
 
 }
