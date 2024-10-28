@@ -26,7 +26,7 @@ class SecondaryItemRepositoryTest {
 
     @BeforeAll
     public static void setup(@Autowired @Qualifier("secondaryDataSource") DataSource dataSource) throws Exception {
-        var sql = Files.readString(Paths.get("src/test/resources/secondary-create.sql"), StandardCharsets.UTF_8);
+        var sql = Files.readString(Paths.get("src/test/resources/secondary-create-table.sql"), StandardCharsets.UTF_8);
         try (var conn = dataSource.getConnection(); var stmt = conn.createStatement()) {
             stmt.execute(sql);
         }
