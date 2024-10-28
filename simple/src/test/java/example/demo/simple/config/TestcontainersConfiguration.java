@@ -10,20 +10,23 @@ import org.springframework.boot.testcontainers.service.connection.ServiceConnect
 import org.springframework.context.annotation.Bean;
 import org.testcontainers.oracle.OracleContainer;
 import org.testcontainers.utility.DockerImageName;
+
 @Slf4j
 @TestConfiguration(proxyBeanMethods = false)
 public class TestcontainersConfiguration {
 
+    public static final String USERNAME = "PRIMARY";
+    public static final String PASSWORD = "PRIMARY";
+    public static final int PORT = 1521;
+
     @Bean
     @ServiceConnection
     public OracleContainer oracleFreeContainer() {
-        OracleContainer oracle =  new OracleContainer(DockerImageName.parse("gvenzl/oracle-free:latest"))
-                .withUsername("PRIMARY")
-                .withPassword("PRIMARY")
-                .withExposedPorts(1521)
-                .withCreateContainerCmdModifier(cmd -> cmd.withHostConfig(new HostConfig().withPortBindings(
-                        new PortBinding(Ports.Binding.bindPort(1521), new ExposedPort(1521))
-                )));
+        var oracle = new OracleContainer(DockerImageName.parse("gvenzl/oracle-free:latest"))
+                .withUsername(USERNAME)
+                .withPassword(PASSWORD)
+                .withExposedPorts(PORT)
+                .withCreateContainerCmdModifier(cmd -> cmd.withHostConfig(new HostConfig().withPortBindings(new PortBinding(Ports.Binding.bindPort(PORT), new ExposedPort(PORT)))));
 
         oracle.start();
         log.info(oracle.getLogs());
