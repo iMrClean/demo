@@ -1,36 +1,18 @@
 package example.demo.multipledb.repository.secondary;
 
 import example.demo.multipledb.IntegrationTest;
-import example.demo.multipledb.config.SecondaryTestcontainersConfiguration;
 import example.demo.multipledb.domain.secondary.SecondaryItem;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Import;
-
-import javax.sql.DataSource;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @IntegrationTest
-@Import(SecondaryTestcontainersConfiguration.class)
 class SecondaryItemRepositoryTest {
 
     @Autowired
     private SecondaryItemRepository secondaryItemRepository;
-
-    @BeforeAll
-    public static void setup(@Autowired @Qualifier("secondaryDataSource") DataSource dataSource) throws Exception {
-        var sql = Files.readString(Paths.get("src/test/resources/secondary-create-table.sql"), StandardCharsets.UTF_8);
-        try (var conn = dataSource.getConnection(); var stmt = conn.createStatement()) {
-            stmt.execute(sql);
-        }
-    }
 
     @Test
     @DisplayName("Сохранение элемента (надо настроить контейнер)")
