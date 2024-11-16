@@ -13,15 +13,13 @@ public class TestcontainersConfiguration {
 
     private static final String USERNAME = "PRIMARY";
     private static final String PASSWORD = "PRIMARY";
-    private static final int PORT = 1521;
 
     @Bean
     @ServiceConnection
     public OracleContainer oracleFreeContainer() {
         var container = new OracleContainer(DockerImageName.parse("gvenzl/oracle-free:latest"))
                 .withUsername(USERNAME)
-                .withPassword(PASSWORD)
-                .withExposedPorts(PORT);
+                .withPassword(PASSWORD);
 
         container.start();
 
