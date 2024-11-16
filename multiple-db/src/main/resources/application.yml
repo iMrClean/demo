@@ -7,7 +7,6 @@ spring:
       password: PRIMARY
       liquibase:
         change-log: classpath:/db/changelog/primary/db.changelog-master.yml
-        enabled: false
     secondary:
       driver-class-name: oracle.jdbc.OracleDriver
       url: jdbc:oracle:thin:@//localhost:1521/freepdb1
@@ -15,7 +14,6 @@ spring:
       password: SECONDARY
       liquibase:
         change-log: classpath:/db/changelog/secondary/db.changelog-master.yml
-        enabled: false
   jpa:
     database: oracle
     open-in-view: false
