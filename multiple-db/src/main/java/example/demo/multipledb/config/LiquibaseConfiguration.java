@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
+import java.util.Collections;
 import java.util.Optional;
 
 @Configuration
@@ -45,7 +46,7 @@ public class LiquibaseConfiguration {
 
         liquibase.setChangeLog(primaryLiquibaseProperties.getChangeLog());
         liquibase.setClearCheckSums(primaryLiquibaseProperties.isClearChecksums());
-        liquibase.setContexts(primaryLiquibaseProperties.getContexts());
+        liquibase.setContexts(String.join(",", Optional.ofNullable(primaryLiquibaseProperties.getContexts()).orElse(Collections.emptyList())));
         liquibase.setDefaultSchema(primaryLiquibaseProperties.getDefaultSchema());
         liquibase.setLiquibaseSchema(primaryLiquibaseProperties.getLiquibaseSchema());
         liquibase.setLiquibaseTablespace(primaryLiquibaseProperties.getLiquibaseTablespace());
@@ -53,7 +54,7 @@ public class LiquibaseConfiguration {
         liquibase.setDatabaseChangeLogLockTable(primaryLiquibaseProperties.getDatabaseChangeLogLockTable());
         liquibase.setDropFirst(primaryLiquibaseProperties.isDropFirst());
         liquibase.setShouldRun(primaryLiquibaseProperties.isEnabled());
-        liquibase.setLabelFilter(primaryLiquibaseProperties.getLabelFilter());
+        liquibase.setLabelFilter(String.join(",", Optional.ofNullable(primaryLiquibaseProperties.getLabelFilter()).orElse(Collections.emptyList())));
         liquibase.setChangeLogParameters(primaryLiquibaseProperties.getParameters());
         liquibase.setRollbackFile(primaryLiquibaseProperties.getRollbackFile());
         liquibase.setTestRollbackOnUpdate(primaryLiquibaseProperties.isTestRollbackOnUpdate());
