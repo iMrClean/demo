@@ -47,8 +47,8 @@ class ItemRepositoryTest {
     @DisplayName("Получение всех элементов")
     void shouldFindAllItems() {
         // Arrange
-        var item1 = new Item(1L, "Test Item 1");
-        var item2 = new Item(2L, "Test Item 1");
+        var item1 = new Item(1L, "Test Item");
+        var item2 = new Item(2L, "Test Item");
         itemRepository.save(item1);
         itemRepository.save(item2);
 

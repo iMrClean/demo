@@ -17,10 +17,10 @@ public class TestcontainersConfiguration {
     @Bean
     @ServiceConnection
     public OracleContainer oracleFreeContainer() {
-        var container = new OracleContainer(DockerImageName.parse("gvenzl/oracle-free:latest"))
-                .withUsername(USERNAME)
-                .withPassword(PASSWORD);
+        var container = new OracleContainer(DockerImageName.parse("gvenzl/oracle-free:latest"));
 
+        container.withUsername(USERNAME);
+        container.withPassword(PASSWORD);
         container.start();
 
         return container;
