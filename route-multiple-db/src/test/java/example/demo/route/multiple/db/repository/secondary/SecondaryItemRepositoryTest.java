@@ -25,6 +25,7 @@ class SecondaryItemRepositoryTest {
         var saved = secondaryItemRepository.save(item);
 
         assertThat(saved.getId()).isNotNull();
+        assertThat(saved.getName()).isEqualTo("Item " + db.name());
     }
 
     @ParameterizedTest(name = "Получение элемента по id в базе {0} (надо настроить контейнер)")
@@ -32,11 +33,13 @@ class SecondaryItemRepositoryTest {
     void shouldFindItemById(DatabaseType db) {
         DatabaseTypeRoutingDataSource.setDatabase(db);
 
-        var item = secondaryItemRepository.save(new SecondaryItem(1L, "Item " + db.name()));
-        var found = secondaryItemRepository.findById(item.getId());
+        var item = new SecondaryItem(1L, "Item " + db.name());
+        secondaryItemRepository.save(item);
 
-        assertThat(found).isPresent();
-        assertThat(found.get().getName()).isEqualTo("Item " + db.name());
+        var foundItem = secondaryItemRepository.findById(item.getId());
+
+        assertThat(foundItem).isPresent();
+        assertThat(foundItem.get().getName()).isEqualTo("Item " + db.name());
     }
 
     @ParameterizedTest(name = "Получение всех элементов в базе {0} (надо настроить контейнер)")
@@ -44,11 +47,15 @@ class SecondaryItemRepositoryTest {
     void shouldFindAllItems(DatabaseType db) {
         DatabaseTypeRoutingDataSource.setDatabase(db);
 
-        var i1 = secondaryItemRepository.save(new SecondaryItem(1L, "Item " + db.name()));
-        var i2 = secondaryItemRepository.save(new SecondaryItem(2L, "Item " + db.name()));
-        var all = secondaryItemRepository.findAll();
+        var item1 = new SecondaryItem(1L, "Item " + db.name());
+        var item2 = new SecondaryItem(2L, "Item " + db.name());
+        secondaryItemRepository.save(item1);
+        secondaryItemRepository.save(item2);
 
-        assertThat(all).hasSize(2).contains(i1, i2);
+        var allItems = secondaryItemRepository.findAll();
+
+        assertThat(allItems).hasSize(2);
+        assertThat(allItems).contains(item1, item2);
     }
 
     @ParameterizedTest(name = "Удаление элемента в базе {0} (надо настроить контейнер)")
@@ -56,10 +63,13 @@ class SecondaryItemRepositoryTest {
     void shouldDeleteItem(DatabaseType db) {
         DatabaseTypeRoutingDataSource.setDatabase(db);
 
-        var item = secondaryItemRepository.save(new SecondaryItem(1L, "Item " + db.name()));
+        var item = new SecondaryItem(1L, "Item " + db.name());
+        secondaryItemRepository.save(item);
+
         secondaryItemRepository.deleteById(item.getId());
 
-        assertThat(secondaryItemRepository.findById(item.getId())).isEmpty();
+        var deletedItem = secondaryItemRepository.findById(item.getId());
+        assertThat(deletedItem).isEmpty();
     }
 
 }
