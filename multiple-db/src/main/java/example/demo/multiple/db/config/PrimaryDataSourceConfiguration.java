@@ -45,7 +45,7 @@ public class PrimaryDataSourceConfiguration {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(EntityManagerFactoryBuilder builder, DataSource primaryDataSource) {
+    public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(EntityManagerFactoryBuilder builder, @Qualifier("primaryDataSource") DataSource primaryDataSource) {
         return builder
                 .dataSource(primaryDataSource)
                 .packages(PACKAGES)

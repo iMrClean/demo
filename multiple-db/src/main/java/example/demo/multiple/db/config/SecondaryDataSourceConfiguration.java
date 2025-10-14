@@ -43,7 +43,7 @@ public class SecondaryDataSourceConfiguration {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean secondaryEntityManagerFactory(EntityManagerFactoryBuilder builder, DataSource secondaryDataSource) {
+    public LocalContainerEntityManagerFactoryBean secondaryEntityManagerFactory(EntityManagerFactoryBuilder builder,  @Qualifier("secondaryDataSource") DataSource secondaryDataSource) {
         return builder
                 .dataSource(secondaryDataSource)
                 .packages(PACKAGES)

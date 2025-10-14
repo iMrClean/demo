@@ -16,7 +16,7 @@ class SecondaryItemRepositoryTest {
     @Autowired
     private SecondaryItemRepository secondaryItemRepository;
 
-    @ParameterizedTest(name = "Сохранение элемента в базе {0} (надо настроить контейнер)")
+    @ParameterizedTest(name = "Сохранение элемента в базе {0})")
     @EnumSource(DatabaseType.class)
     void shouldSaveItem(DatabaseType db) {
         DatabaseTypeRoutingDataSource.setDatabase(db);
@@ -28,7 +28,7 @@ class SecondaryItemRepositoryTest {
         assertThat(saved.getName()).isEqualTo("Item " + db.name());
     }
 
-    @ParameterizedTest(name = "Получение элемента по id в базе {0} (надо настроить контейнер)")
+    @ParameterizedTest(name = "Получение элемента по id в базе {0})")
     @EnumSource(DatabaseType.class)
     void shouldFindItemById(DatabaseType db) {
         DatabaseTypeRoutingDataSource.setDatabase(db);
@@ -42,7 +42,7 @@ class SecondaryItemRepositoryTest {
         assertThat(foundItem.get().getName()).isEqualTo("Item " + db.name());
     }
 
-    @ParameterizedTest(name = "Получение всех элементов в базе {0} (надо настроить контейнер)")
+    @ParameterizedTest(name = "Получение всех элементов в базе {0})")
     @EnumSource(DatabaseType.class)
     void shouldFindAllItems(DatabaseType db) {
         DatabaseTypeRoutingDataSource.setDatabase(db);
@@ -58,7 +58,7 @@ class SecondaryItemRepositoryTest {
         assertThat(allItems).contains(item1, item2);
     }
 
-    @ParameterizedTest(name = "Удаление элемента в базе {0} (надо настроить контейнер)")
+    @ParameterizedTest(name = "Удаление элемента в базе {0})")
     @EnumSource(DatabaseType.class)
     void shouldDeleteItem(DatabaseType db) {
         DatabaseTypeRoutingDataSource.setDatabase(db);

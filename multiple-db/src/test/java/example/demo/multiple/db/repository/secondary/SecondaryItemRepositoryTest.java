@@ -15,7 +15,7 @@ class SecondaryItemRepositoryTest {
     private SecondaryItemRepository secondaryItemRepository;
 
     @Test
-    @DisplayName("Сохранение элемента (надо настроить контейнер)")
+    @DisplayName("Сохранение элемента)")
     void shouldSaveItem() {
         var item = new SecondaryItem(1L, "Test Item");
 
@@ -26,7 +26,7 @@ class SecondaryItemRepositoryTest {
     }
 
     @Test
-    @DisplayName("Получение элемента по идентификатору (надо настроить контейнер)")
+    @DisplayName("Получение элемента по идентификатору)")
     void shouldFindItemById() {
         var item = new SecondaryItem(1L, "Test Item");
         secondaryItemRepository.save(item);
@@ -38,7 +38,7 @@ class SecondaryItemRepositoryTest {
     }
 
     @Test
-    @DisplayName("Получение всех элементов (надо настроить контейнер)")
+    @DisplayName("Получение всех элементов)")
     void shouldFindAllItems() {
         var item1 = new SecondaryItem(1L, "Test Item");
         var item2 = new SecondaryItem(2L, "Test Item");
@@ -52,7 +52,7 @@ class SecondaryItemRepositoryTest {
     }
 
     @Test
-    @DisplayName("Удаление элемента по идентификатору (надо настроить контейнер)")
+    @DisplayName("Удаление элемента по идентификатору)")
     void shouldDeleteItemById() {
         var item = new SecondaryItem(1L, "Test Item");
         secondaryItemRepository.save(item);
