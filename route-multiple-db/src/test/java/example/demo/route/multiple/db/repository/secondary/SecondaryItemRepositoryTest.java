@@ -18,7 +18,7 @@ class SecondaryItemRepositoryTest {
     private SecondaryItemRepository secondaryItemRepository;
 
     @DisplayName("Сохранение элемента")
-    @ParameterizedTest(name = "Сохранение элемента в базе {0}")
+    @ParameterizedTest(name = "Сохранение элемента {0}")
     @EnumSource(DatabaseType.class)
     void shouldSaveItem(DatabaseType db) {
         DatabaseTypeRoutingDataSource.setDatabase(db);
@@ -31,7 +31,7 @@ class SecondaryItemRepositoryTest {
     }
 
     @DisplayName("Получение элемента по идентификатору")
-    @ParameterizedTest(name = "Получение элемента по id в базе {0}")
+    @ParameterizedTest(name = "Получение элемента по идентификатору {0}")
     @EnumSource(DatabaseType.class)
     void shouldFindItemById(DatabaseType db) {
         DatabaseTypeRoutingDataSource.setDatabase(db);
@@ -46,7 +46,7 @@ class SecondaryItemRepositoryTest {
     }
 
     @DisplayName("Получение всех элементов")
-    @ParameterizedTest(name = "Получение всех элементов в базе {0}")
+    @ParameterizedTest(name = "Получение всех элементов {0}")
     @EnumSource(DatabaseType.class)
     void shouldFindAllItems(DatabaseType db) {
         DatabaseTypeRoutingDataSource.setDatabase(db);
@@ -63,7 +63,7 @@ class SecondaryItemRepositoryTest {
     }
 
     @DisplayName("Удаление элемента по идентификатору")
-    @ParameterizedTest(name = "Удаление элемента в базе {0}")
+    @ParameterizedTest(name = "Удаление элемента по идентификатору {0}")
     @EnumSource(DatabaseType.class)
     void shouldDeleteItem(DatabaseType db) {
         DatabaseTypeRoutingDataSource.setDatabase(db);
