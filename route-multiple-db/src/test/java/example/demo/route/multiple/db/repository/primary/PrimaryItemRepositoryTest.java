@@ -5,35 +5,11 @@ import example.demo.route.multiple.db.domain.primary.PrimaryItem;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.oracle.OracleContainer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Testcontainers
 @IntegrationTest
 class PrimaryItemRepositoryTest {
-
-    @Container
-    static OracleContainer oracle = new OracleContainer("gvenzl/oracle-free:latest");
-
-    @DynamicPropertySource
-    static void registerProps(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.primary.url", oracle::getJdbcUrl);
-        registry.add("spring.datasource.primary.username", oracle::getUsername);
-        registry.add("spring.datasource.primary.password", oracle::getPassword);
-
-        registry.add("spring.datasource.secondary-a.url", oracle::getJdbcUrl);
-        registry.add("spring.datasource.secondary-a.username", oracle::getUsername);
-        registry.add("spring.datasource.secondary-a.password", oracle::getPassword);
-
-        registry.add("spring.datasource.secondary-b.url", oracle::getJdbcUrl);
-        registry.add("spring.datasource.secondary-b.username", oracle::getUsername);
-        registry.add("spring.datasource.secondary-b.password", oracle::getPassword);
-    }
 
     @Autowired
     private PrimaryItemRepository primaryItemRepository;
