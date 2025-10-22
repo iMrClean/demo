@@ -7,16 +7,40 @@ import example.demo.route.multiple.db.domain.secondary.SecondaryItem;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.oracle.OracleContainer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Testcontainers
 @IntegrationTest
 class SecondaryItemRepositoryTest {
+
+    @Container
+    static OracleContainer oracle = new OracleContainer("gvenzl/oracle-free:latest");
+
+    @DynamicPropertySource
+    static void registerProps(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.primary.url", oracle::getJdbcUrl);
+        registry.add("spring.datasource.primary.username", oracle::getUsername);
+        registry.add("spring.datasource.primary.password", oracle::getPassword);
+
+        registry.add("spring.datasource.secondary-a.url", oracle::getJdbcUrl);
+        registry.add("spring.datasource.secondary-a.username", oracle::getUsername);
+        registry.add("spring.datasource.secondary-a.password", oracle::getPassword);
+
+        registry.add("spring.datasource.secondary-b.url", oracle::getJdbcUrl);
+        registry.add("spring.datasource.secondary-b.username", oracle::getUsername);
+        registry.add("spring.datasource.secondary-b.password", oracle::getPassword);
+    }
 
     @Autowired
     private SecondaryItemRepository secondaryItemRepository;
 
-    @ParameterizedTest(name = "Сохранение элемента в базе {0})")
+    @ParameterizedTest(name = "Сохранение элемента в базе {0}")
     @EnumSource(DatabaseType.class)
     void shouldSaveItem(DatabaseType db) {
         DatabaseTypeRoutingDataSource.setDatabase(db);
@@ -28,7 +52,7 @@ class SecondaryItemRepositoryTest {
         assertThat(saved.getName()).isEqualTo("Item " + db.name());
     }
 
-    @ParameterizedTest(name = "Получение элемента по id в базе {0})")
+    @ParameterizedTest(name = "Получение элемента по id в базе {0}")
     @EnumSource(DatabaseType.class)
     void shouldFindItemById(DatabaseType db) {
         DatabaseTypeRoutingDataSource.setDatabase(db);
@@ -42,7 +66,7 @@ class SecondaryItemRepositoryTest {
         assertThat(foundItem.get().getName()).isEqualTo("Item " + db.name());
     }
 
-    @ParameterizedTest(name = "Получение всех элементов в базе {0})")
+    @ParameterizedTest(name = "Получение всех элементов в базе {0}")
     @EnumSource(DatabaseType.class)
     void shouldFindAllItems(DatabaseType db) {
         DatabaseTypeRoutingDataSource.setDatabase(db);
@@ -58,7 +82,7 @@ class SecondaryItemRepositoryTest {
         assertThat(allItems).contains(item1, item2);
     }
 
-    @ParameterizedTest(name = "Удаление элемента в базе {0})")
+    @ParameterizedTest(name = "Удаление элемента в базе {0}")
     @EnumSource(DatabaseType.class)
     void shouldDeleteItem(DatabaseType db) {
         DatabaseTypeRoutingDataSource.setDatabase(db);

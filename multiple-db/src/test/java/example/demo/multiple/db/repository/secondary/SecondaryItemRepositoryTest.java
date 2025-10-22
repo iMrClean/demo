@@ -18,9 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SecondaryItemRepositoryTest {
 
     @Container
-    static OracleContainer oracle = new OracleContainer("gvenzl/oracle-free:latest")
-            .withUsername("SECONDARY")
-            .withPassword("SECONDARY");
+    static OracleContainer oracle = new OracleContainer("gvenzl/oracle-free:latest");
 
     @DynamicPropertySource
     static void registerProps(DynamicPropertyRegistry registry) {
