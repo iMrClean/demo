@@ -4,6 +4,7 @@ import example.demo.route.multiple.db.IntegrationTest;
 import example.demo.route.multiple.db.config.DatabaseType;
 import example.demo.route.multiple.db.config.DatabaseTypeRoutingDataSource;
 import example.demo.route.multiple.db.domain.secondary.SecondaryItem;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ class SecondaryItemRepositoryTest {
     @Autowired
     private SecondaryItemRepository secondaryItemRepository;
 
+    @DisplayName("Сохранение элемента")
     @ParameterizedTest(name = "Сохранение элемента в базе {0}")
     @EnumSource(DatabaseType.class)
     void shouldSaveItem(DatabaseType db) {
@@ -28,6 +30,7 @@ class SecondaryItemRepositoryTest {
         assertThat(saved.getName()).isEqualTo("Item " + db.name());
     }
 
+    @DisplayName("Получение элемента по идентификатору")
     @ParameterizedTest(name = "Получение элемента по id в базе {0}")
     @EnumSource(DatabaseType.class)
     void shouldFindItemById(DatabaseType db) {
@@ -42,6 +45,7 @@ class SecondaryItemRepositoryTest {
         assertThat(foundItem.get().getName()).isEqualTo("Item " + db.name());
     }
 
+    @DisplayName("Получение всех элементов")
     @ParameterizedTest(name = "Получение всех элементов в базе {0}")
     @EnumSource(DatabaseType.class)
     void shouldFindAllItems(DatabaseType db) {
@@ -58,6 +62,7 @@ class SecondaryItemRepositoryTest {
         assertThat(allItems).contains(item1, item2);
     }
 
+    @DisplayName("Удаление элемента по идентификатору")
     @ParameterizedTest(name = "Удаление элемента в базе {0}")
     @EnumSource(DatabaseType.class)
     void shouldDeleteItem(DatabaseType db) {
