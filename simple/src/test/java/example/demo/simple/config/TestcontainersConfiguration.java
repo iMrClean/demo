@@ -11,19 +11,10 @@ import org.testcontainers.utility.DockerImageName;
 @TestConfiguration(proxyBeanMethods = false)
 public class TestcontainersConfiguration {
 
-    private static final String USERNAME = "PRIMARY";
-    private static final String PASSWORD = "PRIMARY";
-
     @Bean
     @ServiceConnection
     public OracleContainer oracleFreeContainer() {
-        var container = new OracleContainer(DockerImageName.parse("gvenzl/oracle-free:latest"));
-
-        container.withUsername(USERNAME);
-        container.withPassword(PASSWORD);
-        container.start();
-
-        return container;
+        return new OracleContainer(DockerImageName.parse("gvenzl/oracle-free:latest"));
     }
 
 }
